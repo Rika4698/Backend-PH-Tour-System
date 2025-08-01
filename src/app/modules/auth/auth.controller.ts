@@ -6,9 +6,11 @@ import { AuthServices } from "./auth.service";
 import { catchAsync } from "../../utils/catchAsync";
 import AppError from "../../errorHelpers/AppError";
 import { setAuthCookie } from "../../utils/setCookie";
+
 import { createUserTokens } from "../../utils/userTokens";
 import { envVars } from "../../config/env";
 import { JwtPayload } from "jsonwebtoken";
+
 
 
 
@@ -87,6 +89,7 @@ const logout = catchAsync(async(req: Request, res:Response, next: NextFunction) 
 })
 
 
+
 const resetPassword = catchAsync(async(req: Request, res:Response, next: NextFunction) => {
 
     const newPassword = req.body.newPassword;
@@ -137,4 +140,10 @@ export const AuthControllers = {
     logout,
     resetPassword,
     googleCallbackController
+
+export const AuthControllers = {
+    credentialsLogin,
+    getNewAccessToken,
+    logout
+
 }

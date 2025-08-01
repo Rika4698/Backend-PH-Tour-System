@@ -3,9 +3,11 @@ import AppError from "../errorHelpers/AppError";
 import { envVars } from "../config/env";
 import { verifyToken } from "../utils/jwt";
 import { NextFunction, Request, Response } from "express";
+
 import { User } from "../modules/user/user.model";
 import httpStatus from "http-status-codes";
 import { IsActive } from "../modules/user/user.interface";
+
 
 
 
@@ -17,6 +19,7 @@ export const checkAuth = (...authRoles:string[]) => async (req:Request, res:Resp
         }
 
         const verifiedToken = verifyToken(accessToken, envVars.JWT_ACCESS_SECRET) as JwtPayload
+
 
 
          const isUserExist = await User.findOne({email: verifiedToken.email})
@@ -33,6 +36,7 @@ export const checkAuth = (...authRoles:string[]) => async (req:Request, res:Resp
     if(isUserExist.isDeleted){
         throw new AppError(httpStatus.BAD_REQUEST, "User is deleted")
     }
+
 
 
 
